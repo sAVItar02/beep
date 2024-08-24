@@ -1,23 +1,11 @@
-import logo from './logo.svg';
+import Spacing from './components/Spacing';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container min-h-screen min-w-full h-full w-full bg-white grid lg:grid-cols-2 grid-cols-1 place-items-center gap-10">
+      <Spacing />
     </div>
   );
 }
