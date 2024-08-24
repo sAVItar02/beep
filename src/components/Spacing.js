@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cssRegex } from "../utils/CONSTANTS";
 import { matchRegex } from "../utils/matchRegex";
+import Input from "./Input";
 
 const Spacing = () => {
     const [paddingState, setPaddingState] = useState({
@@ -37,6 +38,7 @@ const Spacing = () => {
         } else {
             e.target.style.border = "2px solid green";
         }
+        
         if(isPadding) {
             setPaddingState(paddingState => {
                 return {
@@ -75,25 +77,34 @@ const Spacing = () => {
 
     return (
         <div className="relative bg-[#f8fafb] border-2 border-slate-300 rounded-md p-2 hover:bg-orange-200 ease-linear duration-100 cursor-pointer flex flex-col items-center justify-center gap-5">
-            <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={marginState.marginTop} onChange={(e) => handleChange(e, "marginTop", false)} onBlur={(e) => confirmChange(e, false)}/>
+            <Input value={marginState.marginTop} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"marginTop"} isPadding={false}/>
             
-            <div className="flex items-center justify-center gap-5">
-                <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={marginState.marginLeft} onChange={(e) => handleChange(e, "marginLeft", false)} onBlur={(e) => confirmChange(e, false)}/>
+            <div className="relative flex items-center justify-center gap-5">
+                <Input value={marginState.marginLeft} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"marginLeft"} isPadding={false}/>
+                
 
                 <div className="relative bg-[#f8fafb] border-2 border-slate-300 rounded-md p-2 flex flex-col items-center justify-center gap-5 hover:bg-lime-200 duration-100 ease-linear cursor-pointer">
-                <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={paddingState.paddingTop} onChange={(e) => handleChange(e, "paddingTop", true)} onBlur={(e) => confirmChange(e, true)}/>
+                    <span className="absolute top-2 left-2 text-sm font-semibold">Paddings</span>
+
+                    <Input value={paddingState.paddingTop} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingTop"} isPadding={true}/>
+
                     <div className="flex items-center justify-center gap-5">
-                        <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={paddingState.paddingLeft} onChange={(e) => handleChange(e, "paddingLeft", true)} onBlur={(e) => confirmChange(e, true)}/>
+                        
+                        <Input value={paddingState.paddingLeft} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingLeft"} isPadding={true}/>
+
                         <div className="w-48 h-10 rounded-md bg-white hover:bg-blue-200 ease-linear duration-100"></div>
-                        <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={paddingState.paddingRight} onChange={(e) => handleChange(e, "paddingRight", true)} onBlur={(e) => confirmChange(e, true)}/>
+
+                        <Input value={paddingState.paddingRight} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingRight"} isPadding={true}/>
                     </div>
-                    <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={paddingState.paddingBottom} onChange={(e) => handleChange(e, "paddingBottom", true)} onBlur={(e) => confirmChange(e, true)}/>
+                    
+                    <Input value={paddingState.paddingBottom} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingBottom"} isPadding={true}/>
                 </div>
 
-                <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={marginState.marginRight} onChange={(e) => handleChange(e, "marginRight", false)} onBlur={(e) => confirmChange(e, false)}/>
+                <Input value={marginState.marginRight} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"marginRight"} isPadding={false}/>
+                
             </div>
 
-            <input className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center" type="text" pattern={cssRegex} value={marginState.marginBottom} onChange={(e) => handleChange(e, "marginBottom", false)} onBlur={(e) => confirmChange(e, false)}/>
+            <Input value={marginState.marginBottom} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"marginBottom"} isPadding={false}/>
         </div>
     )
 }
