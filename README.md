@@ -1,3 +1,7 @@
+## The site is hosted [here](https://beepassignment.netlify.app)
+
+
+
 ### To run the project follow the following steps. 
 
 1. Open terminal
