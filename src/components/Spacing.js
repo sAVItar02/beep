@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cssRegex } from "../utils/CONSTANTS";
 import { matchRegex } from "../utils/matchRegex";
 import Input from "./Input";
 
-const Spacing = () => {
+const Spacing = ({getCode}) => {
     const [paddingState, setPaddingState] = useState({
         paddingLeft: "20px",
         paddingTop: "20px",
@@ -32,6 +32,21 @@ const Spacing = () => {
         marginBottom: "20px",
     });
 
+    const [changes, setChanges] = useState({
+        changes: {
+            margin: {},
+            padding: {}
+        },
+        values: {
+            margin: {...confirmedMarginState},
+            padding: {...confirmedPaddingState}
+        }
+    })
+
+    useEffect(() => {
+        getCode(changes);
+    }, [changes])
+
     const handleChange = (e, position, isPadding) => {
         if(!cssRegex.test(e.target.value)) {
             e.target.style.border = "2px solid red";
@@ -40,6 +55,23 @@ const Spacing = () => {
         }
         
         if(isPadding) {
+            if(cssRegex.test(e.target.value)) {
+                setChanges(prevChanges => {
+                    let newChanges = {
+                        changes: {
+                            margin: {},
+                            padding: {[position]: e.target.value}
+                        },
+                        values: {
+                            margin: {...prevChanges.values.margin},
+                            padding: {...prevChanges.values.padding},
+                        }
+                    }
+
+                    return newChanges;
+                })
+            }
+
             setPaddingState(paddingState => {
                 return {
                     ...paddingState, 
@@ -47,6 +79,23 @@ const Spacing = () => {
                 }
             })
         } else {
+            if(cssRegex.test(e.target.value)) {
+                setChanges(prevChanges => {
+                    let newChanges = {
+                        changes: {
+                            margin: {[position]: e.target.value},
+                            padding: {}
+                        },
+                        values: {
+                            margin: {...prevChanges.values.margin},
+                            padding: {...prevChanges.values.padding},
+                        }
+                    }
+
+                    return newChanges;
+                })
+            }
+
             setMarginState(marginState => {
                 return {
                     ...marginState, 
@@ -54,6 +103,8 @@ const Spacing = () => {
                 }
             })
         }
+
+        getCode(changes);
     }
 
     const confirmChange = (e, isPadding) => {
@@ -72,6 +123,42 @@ const Spacing = () => {
                 e.target.style.border = "2px solid rgb(209,213,219)";
             }   
         }
+
+        if(matchRegex(marginState) && matchRegex(paddingState)) {
+            setChanges(prevChanges => {
+                let newChanges = {
+                    changes: {
+                        margin: {...prevChanges.changes.margin},
+                        padding: {...prevChanges.changes.padding}
+                    },
+                    values: {
+                        margin: {marginState},
+                        padding: {paddingState},
+                    }
+                }
+
+                console.log("hello");
+    
+                return newChanges;
+            })
+        } else {
+            setChanges(prevChanges => {
+                let newChanges = {
+                    changes: {
+                        margin: {...prevChanges.changes.margin},
+                        padding: {...prevChanges.changes.padding}
+                    },
+                    values: {
+                        margin: {confirmedMarginState},
+                        padding: {confirmedPaddingState},
+                    }
+                }
+    
+                return newChanges;
+            })
+        }
+
+        getCode(changes);
     }
 
     return (
