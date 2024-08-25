@@ -3,7 +3,7 @@ import { cssRegex } from "../utils/CONSTANTS";
 import { matchRegex } from "../utils/matchRegex";
 import Input from "./Input";
 
-const Spacing = () => {
+const SpacingTwo = ({getMargin, getPadding}) => {
     const [paddingState, setPaddingState] = useState({
         paddingLeft: "20px",
         paddingTop: "20px",
@@ -63,6 +63,7 @@ const Spacing = () => {
             } else {
                 setConfirmedPaddingState(paddingState);
                 e.target.style.border = "2px solid rgb(209,213,219)";
+                getPadding(paddingState);
             }
         } else {
             if(matchRegex(marginState) !== true) {
@@ -70,6 +71,7 @@ const Spacing = () => {
             } else {
                 setConfirmedMarginState(marginState);
                 e.target.style.border = "2px solid rgb(209,213,219)";
+                getMargin(marginState);
             }   
         }
     }
@@ -83,12 +85,12 @@ const Spacing = () => {
                 <Input value={marginState.marginLeft} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"marginLeft"} isPadding={false}/>
                 
 
-                <div style={confirmedMarginState}  className="relative bg-[#f8fafb] border-2 border-slate-300 rounded-md p-2 flex flex-col items-center justify-center gap-5 hover:bg-lime-200 duration-100 ease-linear cursor-pointer">
+                <div  className="relative bg-[#f8fafb] border-2 border-slate-300 rounded-md p-2 flex flex-col items-center justify-center gap-5 hover:bg-lime-200 duration-100 ease-linear cursor-pointer">
                     <span className="absolute top-2 left-2 md:text-sm text-xs font-semibold">Paddings</span>
 
                     <Input value={paddingState.paddingTop} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingTop"} isPadding={true}/>
 
-                    <div style={confirmedPaddingState} className="flex items-center justify-center md:gap-5 gap-1">
+                    <div  className="flex items-center justify-center md:gap-5 gap-1">
                         
                         <Input value={paddingState.paddingLeft} handleChangeFunc={handleChange} confirmChangeFunc={confirmChange} position={"paddingLeft"} isPadding={true}/>
 
@@ -109,4 +111,4 @@ const Spacing = () => {
     )
 }
 
-export default Spacing;
+export default SpacingTwo;

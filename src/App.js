@@ -1,11 +1,16 @@
 import Spacing from './components/Spacing';
 
 import './App.css';
+import Header from './components/Header';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
+import TypeOne from './components/TypeOne';
+import TypeTwo from './components/TypeTwo';
 
 function App() {
   return (
-    <div className="container min-h-screen min-w-full h-full w-full bg-white grid  grid-cols-1 place-items-center gap-10">
-      <Spacing />
+    <div className="container min-h-screen min-w-full h-full w-full bg-white">
+      <Header />
+      <Outlet />
     </div>
   );
 }
