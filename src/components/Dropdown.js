@@ -1,12 +1,14 @@
-import { useDispatch, useSelector } from "react-redux"
-import { updateFunctionality } from "../utils/dropdownSlice";
+import { useDispatch } from "react-redux"
+import { updateFunctionality, updateIfPadding, updatePositionValue } from "../utils/dropdownSlice";
 
-const Dropdown = () => {
+const Dropdown = ({focusOut, isPadding, position}) => {
     const dispatch = useDispatch();
 
     const decideFunction = (type, value) => {
-        console.log("HERE");
-        // dispatch(updateFunctionality({type, value}));
+        focusOut();
+        dispatch(updateFunctionality({type, value}));
+        dispatch(updateIfPadding(isPadding));
+        dispatch(updatePositionValue(position));
     }
 
 
@@ -19,6 +21,7 @@ const Dropdown = () => {
             <button onClick={() => decideFunction("all", "auto")} className="text-sm w-full text-center p-2 hover:bg-gray-300 duration-100 ease-linear">Set all values to auto</button>
             <button onClick={() => decideFunction("this", "unset")} className="text-sm w-full text-center p-2 hover:bg-gray-300 duration-100 ease-linear">Unset this value</button>
             <button onClick={() => decideFunction("all", "unset")} className="text-sm w-full text-center p-2 hover:bg-gray-300 duration-100 ease-linear">Unset all values</button>
+            <button onClick={() => focusOut()} className="text-sm w-full text-center p-2 hover:bg-gray-300 duration-100 ease-linear">Cancel</button>
         </div>
     )
 }

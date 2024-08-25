@@ -15,7 +15,7 @@ const Input = ({value, handleChangeFunc, confirmChangeFunc, position, isPadding}
     }
 
     return (
-        <div className="relative">
+        <div  className="relative">
             <input 
             type="text" 
             pattern={cssRegex} 
@@ -23,13 +23,18 @@ const Input = ({value, handleChangeFunc, confirmChangeFunc, position, isPadding}
             onChange={(e) => handleChangeFunc(e, position, isPadding)} 
             onBlur={(e) => {
                 confirmChangeFunc(e, isPadding);
-                focusOutFunc();
+            }}
+            onKeyUp={(e) => {
+                if(e.key === "Enter") {
+                    confirmChangeFunc(e, isPadding);
+                    focusOutFunc();
+                }
             }}
             onFocus={(e) => focusInFunc()}
-            className="w-16 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center"/>
+            className="md:text-base text-xs md:w-16 w-12 outline-none rounded-md border-2 border-gray-300 p-1 bg-[#f8fafb] font-semibold text-center"/>
 
             <div className={`absolute z-10 top-10 left-1/2 -translate-x-1/2 ${showDropdown ? "block" : "hidden"}`}>
-                <Dropdown /> 
+                <Dropdown position={position} isPadding={isPadding} focusOut={focusOutFunc}/> 
             </div>
         </div>
     )

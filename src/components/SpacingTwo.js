@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cssRegex } from "../utils/CONSTANTS";
 import { matchRegex } from "../utils/matchRegex";
 import Input from "./Input";
+import { useSelector } from "react-redux";
+
 
 const SpacingTwo = ({getMargin, getPadding}) => {
     const [paddingState, setPaddingState] = useState({
@@ -31,6 +33,97 @@ const SpacingTwo = ({getMargin, getPadding}) => {
         marginRight: "20px",
         marginBottom: "20px",
     });
+
+    const dropdownClickInfo = useSelector((store) => store.dropdown.values);
+
+    const handleDropdownClicked = (type, value, isPadding, position) => {
+        if(type === "" || value === "") return;
+        if(isPadding) {
+            if(type === "all") {
+                setPaddingState({
+                    paddingLeft: value,
+                    paddingTop: value,
+                    paddingRight: value,
+                    paddingBottom: value,
+                })
+                setConfirmedPaddingState({
+                    paddingLeft: value,
+                    paddingTop: value,
+                    paddingRight: value,
+                    paddingBottom: value,
+                })
+                getPadding({
+                    paddingLeft: value,
+                    paddingTop: value,
+                    paddingRight: value,
+                    paddingBottom: value,
+                });
+            } else {
+                setPaddingState(prevState => {
+                    return {
+                        ...prevState, 
+                        [position]: value
+                    }
+                })
+
+                setConfirmedPaddingState(prevState => {
+                    return {
+                        ...prevState,
+                        [position]: value
+                    }
+                })
+
+                getPadding({
+                    ...paddingState, 
+                    [position]: value
+                })
+            }
+        } else {
+            if(type === "all") {
+                setMarginState({
+                    marginLeft: value,
+                    marginTop: value,
+                    marginRight: value,
+                    marginBottom: value,
+                })
+                setConfirmedMarginState({
+                    marginLeft: value,
+                    marginTop: value,
+                    marginRight: value,
+                    marginBottom: value,
+                })
+                getMargin({
+                    marginLeft: value,
+                    marginTop: value,
+                    marginRight: value,
+                    marginBottom: value,
+                });
+            } else {
+                setMarginState(prevState => {
+                    return {
+                        ...prevState, 
+                        [position]: value
+                    }
+                })
+
+                setConfirmedMarginState(prevState => {
+                    return {
+                        ...prevState,
+                        [position]: value
+                    }
+                })
+
+                getMargin({
+                    ...marginState,
+                    [position]: value
+                })
+            }
+        }
+    }
+
+    useEffect(() => {
+        handleDropdownClicked(dropdownClickInfo.updateType, dropdownClickInfo.updateValue, dropdownClickInfo.isPadding, dropdownClickInfo.updatePosition);
+    }, [dropdownClickInfo])
 
     const handleChange = (e, position, isPadding) => {
         if(!cssRegex.test(e.target.value)) {
