@@ -1,1 +1,1 @@
-export const cssRegex = /(?<!.)(([0-9]+)(px|rem|em|vh|vw|%))(?!.)|(?<!.)(auto)(?!.)/;
+export const cssRegex = /(?<!.)(([0-9]+)(px|rem|em|vh|vw|%))(?!.)|(?<!.)(auto|unset|inherit)(?!.)/;

@@ -136,8 +136,6 @@ const Spacing = ({getCode}) => {
                         padding: {paddingState},
                     }
                 }
-
-                console.log("hello");
     
                 return newChanges;
             })

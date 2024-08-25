@@ -1,5 +1,4 @@
 const CodeShow = ({code}) => {
-    console.log(code);
     return (
         <div className="max-w-[min(90%,500px)]">
             <code>
